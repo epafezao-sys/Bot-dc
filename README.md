@@ -1,179 +1,157 @@
-## 🤖 Bot Discord Profissional
+# ⚡ Chromo Bot - Discord Premium
 
-Um bot Discord completo com funcionalidades avançadas de moderação, gerenciamento e segurança.
+Bot oficial do servidor do Executor com design profissional e funcionalidades avançadas.
 
-### 📋 Funcionalidades
+## 📋 Requisitos
 
-#### 🛡️ Moderação
-- **!kick** `@usuario [razão]` - Remover membro do servidor
-- **!ban** `@usuario [razão]` - Banir membro permanentemente
-- **!mute** `@usuario [minutos] [razão]` - Mutar membro por tempo determinado
-- **!unmute** `@usuario` - Remover mute de um membro
-- **!warn** `@usuario [razão]` - Avisar um membro (3 avisos = kick automático)
-- **!warns** `@usuario` - Ver histórico de avisos
-- **!clearwarn** `@usuario` - Limpar avisos
+- Node.js 18.x ou superior
+- NPM ou Yarn
+- Discord Bot Token
 
-#### 📋 Informações
-- **!info** `[@usuario]` - Ver informações de um membro
-- **!serverinfo** - Ver informações do servidor
-- **!avatar** `[@usuario]` - Ver avatar de um membro
+## 🚀 Instalação Local
 
-#### ⭐ Sistema de Reputação
-- **!rep** `@usuario` - Dar reputação (+1 ponto)
-- **!reputation** `[@usuario]` - Verificar reputação
-- **!top-reputation** - Top 10 membros mais reputados
-
-#### 🎫 Sistema de Tickets
-- **!ticket** - Criar um ticket privado
-- **!closeticket** - Fechar ticket (apenas dentro do canal do ticket)
-
-#### ⚙️ Configuração
-- **!setlog** `#canal` - Configurar canal de logs
-- **!setautorole** `@cargo` - Configurar autorole para novos membros
-- **!addbannedword** `palavra` - Adicionar palavra proibida
-- **!removebannedword** `palavra` - Remover palavra proibida
-- **!listbannedwords** - Listar todas as palavras proibidas
-
-### 🔒 Recursos de Segurança
-
-1. **Proteção contra Spam**
-   - Detecta quando um usuário envia mais de 5 mensagens em 10 segundos
-   - Muta automaticamente por 5 minutos
-
-2. **Proteção contra Raids**
-   - Detecta quando mais de 10 membros entram em 1 minuto
-   - Remove membros suspeitos automaticamente
-
-3. **Filtro de Palavras Proibidas**
-   - Configurável por servidor
-   - Deleta mensagens automaticamente
-   - Notifica o usuário via DM
-
-4. **Sistema de Avisos**
-   - Histórico completo de avisos
-   - Kick automático após 3 avisos
-
-5. **Logs Completos**
-   - Registra todas as ações de moderação
-   - Monitora entrada/saída de membros
-   - Registra mensagens deletadas
-
-### 📦 Instalação
-
-#### Pré-requisitos
-- Python 3.8+
-- pip
-
-#### Passos
-
-1. **Clone o repositório:**
+### 1. Clone o repositório
 ```bash
-git clone https://github.com/epafezao-sys/Bot-dc-man.git
-cd Bot-dc-man
+git clone https://github.com/epafezao-sys/Bot-dc.git
+cd Bot-dc
 ```
 
-2. **Instale as dependências:**
+### 2. Instale as dependências
 ```bash
-pip install -r requirements.txt
+npm install
 ```
 
-3. **Configure o arquivo .env:**
-```bash
-cp .env.example .env
-```
-
-4. **Edite o arquivo `.env` e adicione seu token:**
-```
+### 3. Configure o arquivo `.env`
+```env
 DISCORD_TOKEN=seu_token_aqui
-PREFIX=!
+PORT=3000
 ```
 
-⚠️ **IMPORTANTE**: Nunca compartilhe seu token! Se fez isso, regenere imediatamente.
-
-5. **Execute o bot:**
+### 4. Execute o bot
 ```bash
-python bot.py
+npm start
 ```
 
-Você verá uma mensagem como:
-```
-✅ Bot conectado como NomeDoBotAqui#0000
-🔧 Prefixo: !
-```
-
-### 🗂️ Estrutura
-
-```
-Bot-dc-man/
-├── bot.py              # Código principal do bot
-├── requirements.txt    # Dependências
-├── .env.example        # Exemplo de variáveis de ambiente
-├── .env                # Variáveis de ambiente (não fazer push)
-├── .gitignore          # Arquivos a ignorar
-├── bot_data.db        # Banco de dados (criado automaticamente)
-└── README.md          # Este arquivo
+Para desenvolvimento com auto-reload:
+```bash
+npm run dev
 ```
 
-### 📊 Banco de Dados
+## 🌐 Deploy no Render
 
-O bot usa SQLite para armazenar:
-- **Avisos** de membros
-- **Reputação** de usuários
-- **Configurações** por servidor
-- **Palavras proibidas**
-- **Tickets**
+### Passo 1: Configure o Render
+1. Acesse [render.com](https://render.com)
+2. Crie uma conta e faça login
+3. Clique em **"New +'** → **"Web Service"**
+4. Conecte seu repositório GitHub
 
-### 🔑 Permissões Necessárias
+### Passo 2: Configurações do Deploy
 
-Para funcionar corretamente, o bot precisa das seguintes permissões:
+**Tipo de Serviço:** `Web Service`
 
-- ✅ Gerenciar mensagens
-- ✅ Gerenciar membros
-- ✅ Banir membros
-- ✅ Remover membros
-- ✅ Mutar membros
-- ✅ Gerenciar canais
-- ✅ Enviar mensagens
-- ✅ Embutir links
-- ✅ Ler histórico de mensagens
+**Build Command:**
+```bash
+npm install
+```
 
-### 💡 Dicas de Uso
+**Start Command:**
+```bash
+npm start
+```
 
-1. **Para um servidor novo:**
-   - Configure um canal de logs: `!setlog #logs`
-   - Configure autorole: `!setautorole @MeuCargoAqui`
-   - Adicione palavras proibidas: `!addbannedword spam`
+**Plano:** Free (ou Pro se desejar uptime 100%)
 
-2. **Moderação:**
-   - Use avisos antes de kicks: `!warn @usuario Spam`
-   - Mantenha logs para documentação
+### Passo 3: Adicione as Variáveis de Ambiente
+No painel do Render, vá para **"Environment"** e adicione:
 
-3. **Reputação:**
-   - Use `!rep @usuario` para reconhecer bom comportamento
-   - Verifique o ranking: `!top-reputation`
+| Chave | Valor |
+|-------|-------|
+| `DISCORD_TOKEN` | Seu token do bot (obtém em Discord Developer Portal) |
+| `PORT` | 3000 |
+| `NODE_ENV` | production |
 
-### 🐛 Troubleshooting
+### Passo 4: Deploy
+Clique em **"Create Web Service"** e o Render começará o deploy automaticamente.
 
-**Bot não conecta:**
-- Verifique o token no `.env`
-- Certifique-se de que o token está válido (não foi regenerado)
+## 📝 Comandos Disponíveis
 
-**Comandos não funcionam:**
-- Verifique permissões do bot
-- Verifique se o bot tem o cargo no topo da hierarquia
+### `!ping`
+Verifica a latência e status de conexão do bot.
 
-**Logs não aparecem:**
-- Execute `!setlog #canal` novamente
-- Certifique-se de que o bot pode enviar mensagens no canal
+### `!info`
+Mostra informações detalhadas sobre o bot (uptime, servidores, ping, etc).
 
-### 📞 Suporte
+## 🎨 Design & Estética
 
-Abra uma [issue](https://github.com/epafezao-sys/Bot-dc-man/issues) no repositório.
+- **Cores:** Azul Discord (#5865F2) e Cinza Premium (#2F3136)
+- **Emojis:** ⚡ ⚙️ 🛡️ 🌐 📊 🟢 (profissionais e modernos)
+- **Embeds:** Todas as respostas usam MessageEmbeds para consistência visual
+- **Footer:** Marca "Chromo Bot" em todas as mensagens
 
-### 📄 Licença
+## 🔧 Estrutura de Pastas
 
-MIT License - veja LICENSE para detalhes
+```
+Bot-dc/
+├── src/
+│   ├── index.js           # Bot principal
+│   ├── server.js          # Servidor Express (Keep-Alive)
+│   └── commands/          # Comandos modulares
+│       ├── ping.js
+│       └── info.js
+├── .env.example           # Template de variáveis
+├── .gitignore             # Arquivos a ignorar
+├── package.json           # Dependências
+└── README.md              # Este arquivo
+```
+
+## 🛡️ Segurança
+
+- ✅ Token nunca fica no repositório (usa `.env`)
+- ✅ `.env` está no `.gitignore`
+- ✅ Tratamento de erros implementado
+- ✅ Validação de permissões possível (extensível)
+
+## 📡 Tecnologias
+
+- **Discord.js v14** - API do Discord
+- **Express.js** - Servidor web para Keep-Alive no Render
+- **dotenv** - Gerenciamento de variáveis
+
+## 🚨 Troubleshooting
+
+### Bot não sobe no Render
+- Verifique se o `DISCORD_TOKEN` está correto no painel
+- Confira se o Build Command é `npm install`
+- Verifique os logs no Render
+
+### Comando não funciona
+- Certifique-se que o comando começa com `!`
+- Confirme se o arquivo está em `src/commands/`
+- Reinicie o bot
+
+## 📞 Como Adicionar Novos Comandos
+
+Crie um arquivo em `src/commands/seu-comando.js`:
+
+```javascript
+const { EmbedBuilder } = require('discord.js');
+
+module.exports = {
+    name: 'seu-comando',
+    description: 'Descrição do comando',
+    execute: async (message, client) => {
+        const embed = new EmbedBuilder()
+            .setColor('#5865F2')
+            .setTitle('Título')
+            .setDescription('Sua resposta aqui')
+            .setFooter({ text: 'Chromo Bot' })
+            .setTimestamp();
+
+        await message.reply({ embeds: [embed] });
+    }
+};
+```
 
 ---
 
-**Desenvolvido com ❤️ para melhorar seu servidor Discord**
+**Desenvolvido com ⚡ para a comunidade do Executor**

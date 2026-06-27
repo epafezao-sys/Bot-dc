@@ -70,7 +70,7 @@ client.on('guildDelete', guild => {
 });
 
 // Inicia o servidor web para o Render não derrubar a aplicação
-keepAlive();
+keepalive();
 
 // Conecta o bot
 client.login(process.env.DISCORD_TOKEN);
