@@ -1,5 +1,5 @@
 require('dotenv').config();
-const { Client, GatewayIntentBits, EmbedBuilder } = require('discord.js');
+const { Client, GatewayIntentBits, EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js');
 const keepAlive = require('./server');
 const fs = require('fs');
 const path = require('path');
@@ -52,12 +52,94 @@ client.on('messageCreate', async message => {
         
         const errorEmbed = new EmbedBuilder()
             .setColor('#FF0000')
-            .setTitle('⚠️ Erro na Execução')
+            .setTitle('Erro na Execução')
             .setDescription('Ocorreu um erro ao processar seu comando.')
             .setFooter({ text: 'Chromo Bot' })
             .setTimestamp();
 
         await message.reply({ embeds: [errorEmbed] }).catch(err => console.error(err));
+    }
+});
+
+// Sistema de Interações - Botões
+client.on('interactionCreate', async interaction => {
+    try {
+        if (interaction.isButton()) {
+            const customId = interaction.customId;
+
+            if (customId === 'create_ticket') {
+                const ticketEmbed = new EmbedBuilder()
+                    .setColor('#5865F2')
+                    .setTitle('Novo Ticket Criado')
+                    .setDescription(`Ticket criado por ${interaction.user.username}`)
+                    .setFields(
+                        { name: 'ID', value: `ticket-${Date.now()}`, inline: true },
+                        { name: 'Status', value: 'Aberto', inline: true }
+                    )
+                    .setFooter({ text: 'Chromo Bot - Tickets' })
+                    .setTimestamp();
+
+                await interaction.reply({ embeds: [ticketEmbed] });
+            } else if (customId === 'close_ticket') {
+                const closeEmbed = new EmbedBuilder()
+                    .setColor('#FF6B6B')
+                    .setTitle('Ticket Fechado')
+                    .setDescription(`Ticket fechado por ${interaction.user.username}`)
+                    .setFooter({ text: 'Chromo Bot - Tickets' })
+                    .setTimestamp();
+
+                await interaction.reply({ embeds: [closeEmbed] });
+            }
+        }
+
+        // Sistema de Interações - Menus Selecionáveis
+        if (interaction.isStringSelectMenu()) {
+            if (interaction.customId === 'help_menu') {
+                let helpText = '';
+                
+                if (interaction.values[0] === 'gerais') {
+                    helpText = `
+**Comandos Gerais:**
+• !ping - Mostra a latência do bot
+• !info - Informações do bot
+• !stats - Estatísticas do servidor
+• !userinfo @usuario - Info do usuário
+                    `;
+                } else if (interaction.values[0] === 'tickets') {
+                    helpText = `
+**Sistema de Tickets:**
+• !ticket - Abre o menu de tickets
+Use os botões para criar ou fechar tickets
+                    `;
+                } else if (interaction.values[0] === 'moderacao') {
+                    helpText = `
+**Comandos de Moderação:**
+• !warn @usuario motivo - Avisar usuário
+• !mute @usuario motivo - Silenciar usuário
+• !kick @usuario motivo - Expulsar usuário
+• !ban @usuario motivo - Banir usuário
+                    `;
+                }
+
+                const embed = new EmbedBuilder()
+                    .setColor('#5865F2')
+                    .setTitle('Central de Ajuda')
+                    .setDescription(helpText)
+                    .setFooter({ text: 'Chromo Bot' })
+                    .setTimestamp();
+
+                await interaction.reply({ embeds: [embed] });
+            }
+        }
+    } catch (error) {
+        console.error('Erro na interação:', error);
+        
+        if (!interaction.replied) {
+            await interaction.reply({ 
+                content: 'Ocorreu um erro ao processar sua interação.',
+                ephemeral: true 
+            }).catch(err => console.error(err));
+        }
     }
 });
 
