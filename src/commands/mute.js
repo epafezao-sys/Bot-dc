@@ -4,6 +4,15 @@ module.exports = {
     name: 'mute',
     description: 'Silencia um usuário',
     execute: async (message, client) => {
+        // Verificar se o usuário é admin
+        if (!message.member.permissions.has('Administrator')) {
+            const errorEmbed = new EmbedBuilder()
+                .setColor('#FF0000')
+                .setTitle('Acesso Negado')
+                .setDescription('Apenas administradores podem usar este comando.');
+            return await message.reply({ embeds: [errorEmbed] });
+        }
+
         const user = message.mentions.users.first();
         const reason = message.content.split(' ').slice(2).join(' ') || 'Motivo não especificado';
 
